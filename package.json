@@ -1,0 +1,17 @@
+{
+  "name": "voxel-glslgen",
+  "version": "0.0.1",
+  "description": "Generate voxel.js terrain using GLSL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "glsl",
+    "voxel",
+    "generate",
+    "terrain"
+  ],
+  "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughskennedy)",
+  "license": "MIT"
+}
