@@ -74,7 +74,7 @@ module.exports = function(fragmentShader) {
     var Z = Math.floor(z / chunkSize) * chunkSize
     var key = X + '|' + Y + '|' + Z
 
-    chunkIndex[key] = chunkIndex[key] || console.log(key) || render(X, Y, Z)
+    chunkIndex[key] = chunkIndex[key] || render(X, Y, Z)
     var idx = (x-X) + (z-Z) * chunkSize + (y-Y) * chunkSize * chunkSize
     return chunkIndex[key][idx * 4];
   };
