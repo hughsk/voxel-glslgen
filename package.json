@@ -4,7 +4,9 @@
   "description": "Push voxel terrain generation to the GPU using a GLSL shader",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "node_modules/.bin/browserify demo/index.js -o demo/bundle.js -d",
+    "start": "npm run prepublish && node_modules/.bin/serve demo"
   },
   "keywords": [
     "glsl",
@@ -18,7 +20,13 @@
     "three-copyshader": "0.0.1",
     "lut": "0.x.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "painterly-textures": "0.0.3",
+    "voxel": "~0.1.5",
+    "voxel-highlight": "0.0.1",
+    "voxel-player": "0.0.1",
+    "voxel-engine": "~0.5.8"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/hughsk/voxel-glslgen.git"
