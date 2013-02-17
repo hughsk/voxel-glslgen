@@ -1,6 +1,6 @@
 {
   "name": "voxel-glslgen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Push voxel terrain generation to the GPU using a GLSL shader",
   "main": "index.js",
   "scripts": {
