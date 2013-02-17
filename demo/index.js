@@ -1,7 +1,6 @@
 var createGame = require('voxel-engine')
 var voxel = require('voxel')
 var player = require('voxel-player')
-var highlighter = require('voxel-highlight')
 
 var glslgen = require('../')
 var CellularNoise = require('./cellular')
@@ -39,6 +38,7 @@ var game = window.game = createGame({
 })
 
 game.appendTo(document.getElementById('container'))
+game.scene.fog = new game.THREE.FogExp2( game.skyColor, 0.001 );
 
 // create the player from a minecraft skin file and tell the
 // game to use it as the main player
@@ -53,8 +53,6 @@ window.addEventListener('keydown', function (ev) {
 })
 
 // block interaction stuff
-var highlight = highlighter(game)
-
 game.on('fire', function(target, state) {
   var vec = game.cameraVector()
   var pos = game.cameraPosition()
