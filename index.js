@@ -1,9 +1,16 @@
 var lut = require('lut')
   , copyshader = require('three-copyshader')
 
-module.exports = function(fragmentShader, options) {
+module.exports = function(fragmentShader, options, setup) {
+  if (typeof options === 'function') {
+    setup = options
+    options = {}
+  }
+
+  options = options || {}
+  setup = setup || function(){}
+
   var temp2d = document.createElement('canvas').getContext('2d')
-    , options = options || {}
     , cacheSize = options.cacheSize || 4
     , THREE
     , chunkSize
@@ -64,6 +71,8 @@ module.exports = function(fragmentShader, options) {
     offset = shader.uniforms.glslgen_offset.value
     shader.uniforms.glslgen_table.value = new THREE.Texture(table)
     shader.uniforms.glslgen_table.value.needsUpdate = true
+
+    setup(shader)
 
     return (generate = glslGenerate)(x, y, z)
   };
