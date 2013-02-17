@@ -1,6 +1,6 @@
 # voxel-glslgen #
 
-Push voxel terrain generation to the GPU with this GLSL shader. This is just
+Push voxel terrain generation to the GPU using a GLSL shader. This is just
 a WIP and an experiment with offloading computation to a shader, so no
 guarantees that it is *actually* faster than vanilla JavaScript - but feel
 free to submit a Pull Request with performance/API improvements.

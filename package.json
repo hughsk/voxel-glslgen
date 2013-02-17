@@ -1,7 +1,7 @@
 {
   "name": "voxel-glslgen",
   "version": "0.0.1",
-  "description": "Generate voxel.js terrain using GLSL",
+  "description": "Push voxel terrain generation to the GPU using a GLSL shader",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,5 +17,10 @@
   "dependencies": {
     "three-copyshader": "0.0.1",
     "lut": "0.x.x"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hughsk/voxel-glslgen.git"
   }
 }
