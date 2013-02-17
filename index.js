@@ -1,8 +1,10 @@
 var lut = require('lut')
   , copyshader = require('three-copyshader')
 
-module.exports = function(fragmentShader) {
+module.exports = function(fragmentShader, options) {
   var temp2d = document.createElement('canvas').getContext('2d')
+    , options = options || {}
+    , cacheSize = options.cacheSize || 4
     , THREE
     , chunkSize
     , table
@@ -17,7 +19,7 @@ module.exports = function(fragmentShader) {
   // out for the main function.
   function firstGenerate(x, y, z, n, game) {
     THREE = game.THREE
-    chunkSize = Math.min(game.chunkSize, 32)
+    chunkSize = Math.min(options.chunkSize || game.chunkSize, 32)
     table = lut(chunkSize, chunkSize, chunkSize)
     temp2d.canvas.width = chunkSize * chunkSize
     temp2d.canvas.height = chunkSize
@@ -86,7 +88,7 @@ module.exports = function(fragmentShader) {
     offset.y = - (y + chunkSize)
     offset.z = z
     chunkList.push(key)
-    if (chunkList.length > 4) delete chunkIndex[chunkList.unshift()]
+    if (chunkList.length > cacheSize) delete chunkIndex[chunkList.unshift()]
     target.render(scene, camera)
     temp2d.drawImage(target.domElement, 0, 0)
     return temp2d.getImageData(0, 0, temp2d.canvas.width, temp2d.canvas.height).data
