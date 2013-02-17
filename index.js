@@ -67,6 +67,7 @@ module.exports = function(fragmentShader) {
   };
 
   var chunkIndex = {} // @todo clear the cache
+    , chunkList = []
 
   function glslGenerate(x, y, z) {
     var X = Math.floor(x / chunkSize) * chunkSize
@@ -74,16 +75,18 @@ module.exports = function(fragmentShader) {
     var Z = Math.floor(z / chunkSize) * chunkSize
     var key = X + '|' + Y + '|' + Z
 
-    chunkIndex[key] = chunkIndex[key] || render(X, Y, Z)
+    chunkIndex[key] = chunkIndex[key] || render(X, Y, Z, key)
     var idx = (x-X) + (z-Z) * chunkSize + (y-Y) * chunkSize * chunkSize
     return chunkIndex[key][idx * 4];
   };
 
-  function render(x, y, z) {
+  function render(x, y, z, key) {
     var gl = target.context
     offset.x = x
     offset.y = - (y + chunkSize)
     offset.z = z
+    chunkList.push(key)
+    if (chunkList.length > 4) delete chunkIndex[chunkList.unshift()]
     target.render(scene, camera)
     temp2d.drawImage(target.domElement, 0, 0)
     return temp2d.getImageData(0, 0, temp2d.canvas.width, temp2d.canvas.height).data
