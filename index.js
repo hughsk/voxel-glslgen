@@ -13,9 +13,6 @@ module.exports = function(fragmentShader) {
     , shader
     , offset
 
-  var chunkIndex = {}
-    , chunks = [0,0,0]
-
   // Run this once to pick up game, then swap
   // out for the main function.
   function firstGenerate(x, y, z, n, game) {
@@ -68,6 +65,8 @@ module.exports = function(fragmentShader) {
 
     return (generate = glslGenerate)(x, y, z)
   };
+
+  var chunkIndex = {} // @todo clear the cache
 
   function glslGenerate(x, y, z) {
     var X = Math.floor(x / chunkSize) * chunkSize

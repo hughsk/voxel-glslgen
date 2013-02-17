@@ -13,5 +13,9 @@
     "terrain"
   ],
   "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughskennedy)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "three-copyshader": "0.0.1",
+    "lut": "0.x.x"
+  }
 }
