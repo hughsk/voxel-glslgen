@@ -14,6 +14,7 @@ module.exports = function(fragmentShader, options, setup) {
     , cacheSize = options.cacheSize || 4
     , THREE
     , chunkSize
+    , chunkSizeSquared
     , table
     , target
     , camera
@@ -26,9 +27,12 @@ module.exports = function(fragmentShader, options, setup) {
   // out for the main function.
   function firstGenerate(x, y, z, n, game) {
     THREE = game.THREE
+
     chunkSize = Math.min(options.chunkSize || game.chunkSize, 32)
+    chunkSizeSquared = chunkSize * chunkSize
+
     table = lut(chunkSize, chunkSize, chunkSize)
-    temp2d.canvas.width = chunkSize * chunkSize
+    temp2d.canvas.width = chunkSizeSquared
     temp2d.canvas.height = chunkSize
 
     shader = new THREE.ShaderMaterial({
@@ -64,7 +68,7 @@ module.exports = function(fragmentShader, options, setup) {
     scene = new THREE.Scene
 
     scene.add(quad)
-    target.setSize(chunkSize * chunkSize, chunkSize)
+    target.setSize(chunkSizeSquared, chunkSize)
     target.setClearColorHex(0x000000, 1)
     target.clear()
 
@@ -84,10 +88,10 @@ module.exports = function(fragmentShader, options, setup) {
     var X = Math.floor(x / chunkSize) * chunkSize
     var Y = Math.floor(y / chunkSize) * chunkSize
     var Z = Math.floor(z / chunkSize) * chunkSize
+    var idx = (x-X) + (z-Z) * chunkSize + (y-Y) * chunkSizeSquared
     var key = X + '|' + Y + '|' + Z
 
     chunkIndex[key] = chunkIndex[key] || render(X, Y, Z, key)
-    var idx = (x-X) + (z-Z) * chunkSize + (y-Y) * chunkSize * chunkSize
     return chunkIndex[key][idx * 4];
   };
 
