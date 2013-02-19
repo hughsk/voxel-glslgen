@@ -26,6 +26,10 @@ module.exports = function(fragmentShader, options, setup) {
   // Run this once to pick up game, then swap
   // out for the main function.
   function firstGenerate(x, y, z, n, game) {
+    if (!game || !game.THREE) {
+      throw new Error('Could not retrieve the "game" instance. Make sure you\'re using the latest version of voxel-engine!')
+    }
+
     THREE = game.THREE
 
     chunkSize = Math.min(options.chunkSize || game.chunkSize, 32)
