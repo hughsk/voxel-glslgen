@@ -11,7 +11,7 @@ module.exports = function(fragmentShader, options, setup) {
   setup = setup || function(){}
 
   var temp2d = document.createElement('canvas').getContext('2d')
-    , cacheSize = options.cacheSize || 4
+    , cacheSize = options.cacheSize || 16
     , THREE
     , chunkSize
     , chunkSizeSquared
@@ -105,7 +105,7 @@ module.exports = function(fragmentShader, options, setup) {
     offset.y = - (y + chunkSize)
     offset.z = z
     chunkList.push(key)
-    if (chunkList.length > cacheSize) delete chunkIndex[chunkList.unshift()]
+    if (chunkList.length > cacheSize) delete chunkIndex[chunkList.shift()]
     target.render(scene, camera)
     temp2d.drawImage(target.domElement, 0, 0)
     return temp2d.getImageData(0, 0, temp2d.canvas.width, temp2d.canvas.height).data
