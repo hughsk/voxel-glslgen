@@ -24,6 +24,8 @@
     "painterly-textures": "0.0.3",
     "voxel": "~0.1.5",
     "voxel-player": "0.0.1",
+    "voxel-colorist": "0.0.1",
+    "voxel-pp": "0.0.3",
     "voxel-engine": "~0.5.8"
   },
   "repository": {
