@@ -22,6 +22,7 @@ module.exports = function(fragmentShader, options, setup) {
     , scene
     , shader
     , offset
+    , gl
 
   // Run this once to pick up game, then swap
   // out for the main function.
@@ -80,6 +81,8 @@ module.exports = function(fragmentShader, options, setup) {
     shader.uniforms.glslgen_table.value = new THREE.Texture(table)
     shader.uniforms.glslgen_table.value.needsUpdate = true
 
+    gl = target.context
+
     setup(shader)
 
     return (generate = glslGenerate)(x, y, z)
@@ -95,20 +98,21 @@ module.exports = function(fragmentShader, options, setup) {
     var idx = (x-X) + (z-Z) * chunkSize + (y-Y) * chunkSizeSquared
     var key = X + '|' + Y + '|' + Z
 
-    chunkIndex[key] = chunkIndex[key] || render(X, Y, Z, key)
-    return chunkIndex[key][idx * 4];
-  };
+    if (!chunkIndex[key]) {
+      offset.x = X
+      offset.y = - (Y + chunkSize)
+      offset.z = Z
 
-  function render(x, y, z, key) {
-    var gl = target.context
-    offset.x = x
-    offset.y = - (y + chunkSize)
-    offset.z = z
-    chunkList.push(key)
-    if (chunkList.length > cacheSize) delete chunkIndex[chunkList.shift()]
-    target.render(scene, camera)
-    temp2d.drawImage(target.domElement, 0, 0)
-    return temp2d.getImageData(0, 0, temp2d.canvas.width, temp2d.canvas.height).data
+      chunkList.push(key)
+      if (chunkList.length > cacheSize) delete chunkIndex[chunkList.shift()]
+
+      target.render(scene, camera)
+      temp2d.drawImage(target.domElement, 0, 0)
+
+      chunkIndex[key] = temp2d.getImageData(0, 0, temp2d.canvas.width, temp2d.canvas.height).data
+    }
+
+    return chunkIndex[key][idx * 4];
   };
 
   var generate = firstGenerate
