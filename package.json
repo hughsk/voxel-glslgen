@@ -1,6 +1,6 @@
 {
   "name": "voxel-glslgen",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Push voxel terrain generation to the GPU using a GLSL shader",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,8 @@
     "painterly-textures": "0.0.3",
     "voxel": "~0.1.5",
     "voxel-player": "0.0.1",
+    "voxel-colorist": "0.0.1",
+    "voxel-pp": "0.0.3",
     "voxel-engine": "~0.5.8"
   },
   "repository": {

@@ -13,7 +13,7 @@ npm install voxel-glslgen
 
 ## Usage ##
 
-**glslgen(shader)**
+**glslgen(shader, [options], [setup])**
 
 Takes a string fragment shader and returns a generate function.
 
@@ -35,3 +35,12 @@ The module exposes two GLSL functions:
 
 * `vec3 voxelPosition()` - returns the x,y,z coordinates of the current voxel.
 * `void voxelBlock(n)` - set the voxel block index.
+
+You can also pass the following parameters to the `options` object:
+
+* `cacheSize`: Amount of chunks to store at any one time. Defaults to 4.
+* `chunkSize`: The size of each chunk in voxels - defaults to `game.chunkSize`
+  and limited to a maximum of 32.
+
+The `setup` argument is a callback which supplies the shader used by the
+generator. You can use this if you want to extend the shader somehow.
