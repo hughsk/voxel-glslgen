@@ -5,6 +5,9 @@ a WIP and an experiment with offloading computation to a shader, so no
 guarantees that it is *actually* faster than vanilla JavaScript - but feel
 free to submit a Pull Request with performance/API improvements.
 
+*Note: this currently only works on the master branches for voxel and
+voxel-engine*
+
 ## Installation ##
 
 ``` bash
